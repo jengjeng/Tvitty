@@ -1,8 +1,7 @@
 <template>
-  <div>
-    <input v-model="name">
-    <p>{{ name }}</p>
-    <Hello :name="name"></Hello>
+  <div id="app">
+    <img src="./assets/logo.png">
+    <hello></hello>
   </div>
 </template>
 
@@ -10,16 +9,9 @@
 import Hello from './components/Hello'
 
 export default {
-  data () {
-    return {
-      name: 'test'
-    }
-  },
+  name: 'app',
   components: {
     Hello
-  },
-  mounted () {
-    $(this.$el)
   }
 }
 </script>
