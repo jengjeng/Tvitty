@@ -1,4 +1,4 @@
-# vuejs_day2
+# twitty
 
 > A Vue.js project
 
