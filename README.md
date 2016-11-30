@@ -1,6 +1,6 @@
 # twitty
 
-> A Vue.js project
+> A Twitter-Like app with Vue.js
 
 ## Build Setup
 

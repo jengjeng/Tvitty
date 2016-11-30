@@ -1,36 +1,29 @@
 <template>
-  <div>
-    <input v-model="name">
-    <p>{{ name }}</p>
-    <Hello :name="name"></Hello>
+  <div id="app">
+    <!--<img src="./assets/logo.png">-->
+    <Sidebar :title="AppSetting.name" :user="user" ></Sidebar>
+    <router-view></router-view>
   </div>
 </template>
 
 <script>
-import Hello from './components/Hello'
+import AppSetting from './config/app.js'
+import UserAPI from './api/user.js'
+import Sidebar from './components/Sidebar'
 
 export default {
+  name: 'app',
   data () {
     return {
-      name: 'test'
+      AppSetting,
+      user: UserAPI.get()
     }
   },
   components: {
-    Hello
+    Sidebar
   },
-  mounted () {
-    $(this.$el)
+  created () {
+    console.log(this)
   }
 }
 </script>
-
-<style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
