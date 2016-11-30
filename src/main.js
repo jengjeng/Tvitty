@@ -15,7 +15,7 @@ Vue.use(VueRouter)
 const router = new VueRouter({
   mode: 'history',
   routes: [
-    { path: '/', component: componentInit('<x :title="AppSetting.name" :user="user"></x>', NewFeed) },
+    { container: 'MainMenu', title: 'Home', path: '/', component: componentInit('<x :title="AppSetting.name" :user="user"></x>', NewFeed) },
     { path: '*', redirect: '/' }
   ]
 })
@@ -31,5 +31,5 @@ new Vue({
 
 /* Functions */
 function componentInit (template, component) {
-  return { template: template, components: { 'x': component }, data () { return { AppSetting, user: UserAPI.get() } } }
+  return { template: template, components: { 'x': component }, data () { return { AppSetting, user: UserAPI.currentUser } } }
 }

@@ -16,7 +16,7 @@ export default {
   data () {
     return {
       AppSetting,
-      user: UserAPI.get()
+      user: UserAPI.currentUser
     }
   },
   components: {
