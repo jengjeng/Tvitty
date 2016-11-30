@@ -1,4 +1,4 @@
-# twitty
+# tvitty
 
 > A Twitter-Like app with Vue.js
 

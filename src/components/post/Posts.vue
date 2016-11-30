@@ -1,11 +1,6 @@
 <template>
   <div>
-    Post List
-    <ul>
-      <template v-for="post in posts">
-        <Post :post="post"></Post>
-      </template>
-    </ul>
+    <Post v-for="post in sortedPosts" :key="post.id" :post="post" :user="post.user"></Post>
   </div>
 </template>
 
@@ -17,6 +12,13 @@ export default {
     posts: {
       type: Array,
       required: true
+    }
+  },
+  computed: {
+    sortedPosts () {
+      return this.posts.sort((a, b) => {
+        return b.date - a.date
+      })
     }
   },
   components: {

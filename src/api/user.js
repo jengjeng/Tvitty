@@ -4,8 +4,9 @@ export default {
   },
   get () {
     return {
+      username: 'Jeng',
       name: 'jengjeng',
-      photo: './assets/logo.png'
+      photo: '/static/avatar.jpg'
     }
   }
 }
