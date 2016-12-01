@@ -33,4 +33,16 @@ webpack(webpackConfig, function (err, stats) {
     chunks: false,
     chunkModules: false
   }) + '\n')
+
+  const fs = require('fs')
+  const srcDir = 'dist/static/fonts'
+  const distDir = 'dist/static/css/static/fonts'
+  var mkdirp = require('mkdirp');
+  mkdirp(distDir, function (err) {
+    if (err) throw (err)
+    fs.readdirSync(srcDir).forEach((f) => {
+      fs.renameSync(srcDir + '/' + f, distDir + '/' + f)
+    })
+  });
+  
 })
