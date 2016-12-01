@@ -1,7 +1,7 @@
 let user = {
   name: 'JengJeng',
   description: 'Front-End & Full-Stack Developer',
-  photo: '/static/avatar.jpg'
+  photo: './static/avatar.jpg'
 }
 
 export default {
