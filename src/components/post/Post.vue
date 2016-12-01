@@ -12,7 +12,7 @@
                 {{ user.name }}
               </router-link>
               <router-link to="/profile" class="date">
-                {{ user.name }}
+                @{{ user.name }}
               </router-link>
               <MomentDate :date="new Date(post.date)" class="date"></MomentDate>
             </div>

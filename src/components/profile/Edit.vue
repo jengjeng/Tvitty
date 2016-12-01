@@ -77,6 +77,10 @@ export default {
 </script>
 
 <style scoped>
+  .ui.image.circular {
+    max-width: 300px;
+    max-height: 300px;
+  }
   .photo-picker {
     cursor: pointer;
   }
