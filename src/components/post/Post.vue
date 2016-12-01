@@ -8,12 +8,12 @@
           </div>
           <div class="content">
             <div class="summary">
-              <a class="user">
+              <router-link to="/profile" class="user">
                 {{ user.name }}
-              </a>
-              <a class="date">
-                @{{ user.name }}
-              </a>
+              </router-link>
+              <router-link to="/profile" class="date">
+                {{ user.name }}
+              </router-link>
               <MomentDate :date="new Date(post.date)" class="date"></MomentDate>
             </div>
             <div class="summary" v-html="post.message">
