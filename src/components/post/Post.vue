@@ -3,13 +3,13 @@
     <div class="ui segment transition hidden">
       <div class="ui feed">
         <div class="event">
-          <div class="label">
+          <div class="label photo-container">
             <img :src="user.photo">
           </div>
           <div class="content">
             <div class="summary">
               <a class="user">
-                {{ user.username }}
+                {{ user.name }}
               </a>
               <a class="date">
                 @{{ user.name }}
@@ -82,5 +82,12 @@ export default {
 <style scoped lang="scss">
   .ui.feed > .event > .label {
     width: 3.5em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    > img {
+      flex: none;
+    }
   }
 </style>

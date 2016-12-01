@@ -8,10 +8,10 @@
         </span>
       </router-link>
       <!--<template v-for="route in routes">
-        <router-link v-if="route.container === 'MainMenu'" :to="route.path" class="item">{{ route.title || route.name || route.path }}</router-link>
+        <router-link v-if="route.navbar === 'MainMenu'" :to="route.path" class="item">{{ route.title || route.name || route.path }}</router-link>
       </template>-->
       <div class="right menu">
-        <div class="ui dropdown item">
+        <a ref="dropdown" class="ui dropdown item">
           <div>
             <img :src="user.photo" class="ui circular image mini"/>
             &nbsp;
@@ -20,28 +20,18 @@
           </div>
           <i class="dropdown icon"></i>
           <div class="menu">
-            <!--<a class="item" href="#">Link Item</a>
-            <a class="item" href="#">Link Item</a>
-            <div class="divider"></div>
-            <div class="header">Header Item</div>
-            <div class="item">
-              <i class="dropdown icon"></i>
-              Sub Menu
-              <div class="menu">
-                <a class="item" href="#">Link Item</a>
-                <a class="item" href="#">Link Item</a>
-              </div>
-            </div>
-            <a class="item" href="#">Link Item</a>-->
+            <template v-for="route in routes">
+              <router-link v-if="route.navbar === 'UserProfileDropdown'" :to="route.path" class="item">{{ route.title || route.name || route.path }}</router-link>
+            </template>
           </div>
-        </div>
+        </a>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import SidebarMenu from './SidebarMenu'
+import NavbarMenu from './NavbarMenu'
 
 export default {
   props: {
@@ -54,12 +44,17 @@ export default {
     }
   },
   components: {
-    SidebarMenu
+    NavbarMenu
   },
   data () {
     return {
       routes: this.$router.options.routes
     }
+  },
+  mounted () {
+    this.$nextTick(() => {
+      $(this.$refs.dropdown).dropdown()
+    })
   }
 }
 </script>

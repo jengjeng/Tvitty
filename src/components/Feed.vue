@@ -24,16 +24,9 @@ import CreatePost from './post/CreatePost'
 
 export default {
   props: {
-    title: {
-      type: String,
-      default: ''
-    },
     user: {
       type: Object,
       required: true
-    },
-    appState: {
-      type: Object
     }
   },
   data () {

@@ -7,6 +7,8 @@ import AppSetting from './config/app.js'
 import UserAPI from './api/user.js'
 import App from './App'
 import Feed from './components/Feed'
+import Profile from './components/profile/Profile'
+import ProfileEdit from './components/profile/Edit.vue'
 
 Vue.use(VueRouter)
 
@@ -15,7 +17,9 @@ const componentTemplate = '<x :title="AppSetting.name" :user="user"></x>'
 const router = new VueRouter({
   mode: 'history',
   routes: [
-    { container: 'MainMenu', title: 'Home', path: '/', component: componentInit(componentTemplate, Feed) },
+    { navbar: 'MainMenu', title: 'Home', path: '/', component: componentInit(componentTemplate, Feed) },
+    { navbar: 'UserProfileDropdown', title: 'Profile', path: '/profile', component: componentInit(componentTemplate, Profile) },
+    { navbar: '', title: 'Profile', path: '/profile/edit', component: componentInit(componentTemplate, ProfileEdit) },
     { path: '*', redirect: '/' }
   ]
 })

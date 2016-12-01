@@ -1,14 +1,16 @@
 <template>
   <div id="app">
-    <Sidebar :title="AppSetting.name" :user="user" ></Sidebar>
+    <Navbar :title="AppSetting.name" :user="user" ></Navbar>
     <router-view class="ui main text container"></router-view>
+    <PageFooter></PageFooter>
   </div>
 </template>
 
 <script>
 import AppSetting from './config/app.js'
 import UserAPI from './api/user.js'
-import Sidebar from './components/sidebar/Sidebar'
+import Navbar from './components/navbar/Navbar'
+import PageFooter from './components/PageFooter'
 
 export default {
   name: 'app',
@@ -19,21 +21,29 @@ export default {
     }
   },
   components: {
-    Sidebar
+    Navbar,
+    PageFooter
   }
 }
 </script>
 
 <style lang="scss">
-  .ui.main.container {
-    margin-top: 6.5em;
-  }
-
   .logo-text {
     color: rgb(144, 154, 52);
 
     span {
       color: rgb(0, 169, 223);
     }
+  }
+</style>
+
+<style scoped>
+  #app {
+    position: relative;
+    min-height: 100%;
+  }
+  .ui.main.container {
+    padding-top: 6.5em;
+    padding-bottom: 3em;
   }
 </style>

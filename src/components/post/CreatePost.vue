@@ -1,7 +1,9 @@
 <template>
   <div class="ui segment secondary">
    <form ref="form" class="ui fluid action input">
-      <img :src="user.photo" class="ui image circular mini">
+      <div class="photo-container">
+        <img :src="user.photo" class="ui image circular mini">
+      </div>
       <input ref="message" class="ui input" type="text" placeholder="What do you thinking?">
       <button class="ui button primary" type="submit">Post</button>
     </form>
@@ -35,8 +37,13 @@ export default {
 </script>
 
 <style scoped>
+  .photo-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
   .ui.image {
-    height: 35px;
     margin-right: 1.25em;
+    flex: none;
   }
 </style>

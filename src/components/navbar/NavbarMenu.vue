@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h3>SidebarMenu</h3>
+    <h3>NavbarMenu</h3>
     <p>
      {{ user.name }}
     </p>
