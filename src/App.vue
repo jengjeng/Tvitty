@@ -1,5 +1,5 @@
 <template>
-  <div id="app" :class="'ui basic segment ' + stateClass">
+  <div id="app">
     <Sidebar :title="AppSetting.name" :user="user" ></Sidebar>
     <router-view class="ui main text container"></router-view>
   </div>
@@ -15,22 +15,11 @@ export default {
   data () {
     return {
       AppSetting,
-      user: UserAPI.currentUser,
-      appState: {
-        loading: true
-      }
+      user: UserAPI.currentUser
     }
-  },
-  mounted () {
-    this.appState.loading = false
   },
   components: {
     Sidebar
-  },
-  computed: {
-    stateClass () {
-      return this.appState.loading ? 'loading' : ''
-    }
   }
 }
 </script>
