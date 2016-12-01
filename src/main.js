@@ -34,6 +34,9 @@ new Vue({
         appState: _appState
       }
     } */)
+  },
+  mounted () {
+    $('body').css('opacity', '')
   }
 })
 
