@@ -5,19 +5,23 @@ let posts = []
 export default {
   getPosts () {
     return new Promise((resolve, reject) => {
-      posts.length > 0 ? resolve(posts) : $.getJSON('http://api.icndb.com/jokes/random/3').then((response) => {
-        posts = posts.concat(response.value.map((item, index) => {
-          return {
-            id: item.id,
-            message: item.joke,
-            isLike: index % 3 === 0,
-            likes: Math.round(Math.random() * 110) + 1,
-            date: Math.round(new Date() - (Math.random() * 3600000)),
-            user
-          }
-        }))
-        resolve(posts)
-      })
+      if (posts.length === 0) {
+        $.getJSON('http://api.icndb.com/jokes/random/3').then((response) => {
+          response.value.map((item, index) => {
+            return {
+              id: item.id,
+              message: item.joke,
+              isLike: index % 3 === 0,
+              likes: Math.round(Math.random() * 110) + 1,
+              date: Math.round(new Date() - (Math.random() * 3600000)),
+              user
+            }
+          }).forEach((v) => {
+            posts.push(v)
+          })
+        })
+      }
+      resolve(posts)
     })
   },
   createPost (message) {

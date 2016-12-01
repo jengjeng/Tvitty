@@ -4,7 +4,7 @@
       <p class="ui sub header grey center aligned">
         Made with
         <i class="heart icon"></i>
-        by <a href="https://github.com/jengjeng" target="_blank">@jengjeng</a>
+        by <a href="https://jengjeng.github.io/" target="_blank">@jengjeng</a>
       </p>
     </div>
   </footer>

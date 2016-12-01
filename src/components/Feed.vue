@@ -8,7 +8,7 @@
         </div>
       </h1>
       <h5 class="ui header mini">
-        <a>https://github.com/jengjeng/Tvitty</a>
+        <a>See more on Github</a>
       </h5>
     </a>
     <br/>

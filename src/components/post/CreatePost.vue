@@ -4,7 +4,7 @@
       <div class="photo-container">
         <img :src="user.photo" class="ui image circular mini">
       </div>
-      <input ref="message" class="ui input" type="text" placeholder="What do you thinking?">
+      <input ref="message" class="ui input" type="text" placeholder="What are you thinking?">
       <button class="ui button primary" type="submit">Post</button>
     </form>
   </div>
