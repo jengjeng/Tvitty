@@ -6,7 +6,7 @@ export default {
   getPosts () {
     return new Promise((resolve, reject) => {
       if (posts.length === 0) {
-        $.getJSON('http://api.icndb.com/jokes/random/3').then((response) => {
+        $.getJSON('https://api.icndb.com/jokes/random/3').then((response) => {
           response.value.map((item, index) => {
             return {
               id: item.id,

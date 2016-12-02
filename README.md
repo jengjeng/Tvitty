@@ -2,6 +2,9 @@
 
 > A Twitter-Like app with Vue.js
 
+## Demo
+https://jengjeng.github.io/Tvitty/
+
 ## Build Setup
 
 ``` bash

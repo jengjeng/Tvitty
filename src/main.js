@@ -15,7 +15,7 @@ Vue.use(VueRouter)
 const componentTemplate = '<x :title="AppSetting.name" :user="user"></x>'
 
 const router = new VueRouter({
-  mode: 'history',
+  /* mode: 'history', */
   routes: [
     { navbar: 'MainMenu', title: 'Home', path: '/', component: componentInit(componentTemplate, Feed) },
     { navbar: 'UserProfileDropdown', title: 'Profile', path: '/profile', component: componentInit(componentTemplate, Profile) },
@@ -34,6 +34,9 @@ new Vue({
         appState: _appState
       }
     } */)
+  },
+  mounted () {
+    $('body').css('opacity', '')
   }
 })
 
