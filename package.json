@@ -11,11 +11,7 @@
     "e2e": "node test/e2e/runner.js",
     "test": "npm run unit && npm run e2e",
     "lint": "eslint --ext .js,.vue src test/unit/specs test/e2e/specs",
-<<<<<<< HEAD
-    "deploy-git": "push-dir --dir=dist --branch=gh-pages"
-=======
     "deploy-git": "npm run build && push-dir --dir=dist --branch=gh-pages --cleanup"
->>>>>>> c46d5b6ecd598e82c8d8da24d12abb171d68c639
   },
   "dependencies": {
     "jquery": "^3.1.1",
