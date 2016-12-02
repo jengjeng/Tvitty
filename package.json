@@ -11,12 +11,12 @@
     "e2e": "node test/e2e/runner.js",
     "test": "npm run unit && npm run e2e",
     "lint": "eslint --ext .js,.vue src test/unit/specs test/e2e/specs",
-    "deploy-git": "npm run build && push-dir --dir=dist --branch=gh-pages --cleanup"
+    "deploy-git": "push-dir --dir=dist --branch=gh-pages"
   },
   "dependencies": {
     "jquery": "^3.1.1",
     "moment": "^2.17.0",
-    "script-loader": "^0.7.0",  
+    "script-loader": "^0.7.0",
     "semantic-ui": "^2.2.6",
     "vue": "^2.1.0",
     "vue-router": "^2.1.0"
