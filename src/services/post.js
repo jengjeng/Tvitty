@@ -3,6 +3,7 @@ let posts = []
 
 export default {
   getPosts () {
+    posts = []
     return new Promise((resolve, reject) => {
       if (posts.length === 0) {
         $.getJSON('https://api.icndb.com/jokes/random/3').then((response) => {

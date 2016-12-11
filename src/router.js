@@ -28,7 +28,6 @@ const router = new VueRouter({
 
 router.beforeEach((to, from, next) => {
   const unsubscribe = firebase.auth().onAuthStateChanged(user => {
-    console.log('beforeEach', from, to, user)
     unsubscribe()
     if (!user) {
       if (to.matched.some(x => x.meta.requiredAuth)) {

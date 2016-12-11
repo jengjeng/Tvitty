@@ -3,17 +3,17 @@
     <router-link v-if="!user" to="/signin" class="item">Sign In</router-link>
     <a v-else ref="dropdown" class="ui dropdown item">
       <div>
-        <img :src="user.photo" class="ui circular image mini"/>
+        <img :src="user.photoURL" class="ui circular image mini"/>
         &nbsp;
         <span class="ui sub header grey">@</span>
-        {{ user.name }}
+        {{ user.displayName }}
       </div>
       <i class="dropdown icon"></i>
       <div class="menu">
         <template v-for="route in routes">
           <router-link v-if="route.navbar === 'UserProfileDropdown'" :to="route.path" class="item" active-class="header">{{ route.title || route.name || route.path }}</router-link>
         </template>
-        <div class="item">Sign Out</div>
+        <div @click="signOut" class="item">Sign Out</div>
       </div>
     </a>
   </div>
@@ -23,24 +23,28 @@
 import UserService from './../../services/user.js'
 
 export default {
-  props: {
-    user: {
-      type: Object
-    }
-  },
+  props: ['user'],
   data () {
     return {
       routes: this.$router.options.routes
     }
   },
   mounted () {
-    this.$nextTick(() => {
-      $(this.$refs.dropdown).dropdown()
-    })
+    this.$nextTick(this.initUI)
+  },
+  updated () {
+    this.initUI()
   },
   methods: {
+    initUI () {
+      if (this.user) {
+        $(this.$refs.dropdown).dropdown()
+      }
+    },
     signOut () {
       UserService.signOut()
+      $(this.$refs.dropdown).dropdown('destroy')
+      this.$router.push('/')
     }
   }
 }

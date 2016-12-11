@@ -2,12 +2,29 @@ import firebase from 'firebase'
 
 const db = firebase.database()
 
+firebase.auth().onAuthStateChanged(user => {
+  let defaultProfile = {
+    description: ''
+  }
+  if (user) {
+    let ref = `/users/${user.uid}`
+    user.profile = defaultProfile
+    db.ref(ref)
+      .once('value')
+      .then(snapshot => {
+        var userVal = snapshot.val()
+        if (userVal) {
+          user.profile = userVal
+        } else {
+          db.ref(ref).set(defaultProfile)
+        }
+      })
+  }
+})
+
 export default {
   get currentUser () {
-    return this.get()
-  },
-  get () {
-    return setUserData(firebase.auth().currentUser)
+    return firebase.auth().currentUser
   },
   save (obj) {
     for (let prop in obj) {
@@ -16,34 +33,9 @@ export default {
     return this.currentUser
   },
   signInWithGoogle () {
-    let _user
-    return new Promise((resolve, reject) => {
-      firebase.auth().signInWithPopup(new firebase.auth.GoogleAuthProvider()).then((user) => {
-        _user = user
-        return db.ref(`/users/${_user.uid}`).once('value')
-      }).then((snapshot) => {
-        if (snapshot.exists()) {
-          resolve()
-        } else {
-          db.ref(`/users/${_user.uid}`).set({
-            description: ''
-          }).then(() => {
-            resolve()
-          })
-        }
-      })
-    })
+    return firebase.auth().signInWithPopup(new firebase.auth.GoogleAuthProvider())
   },
   signOut () {
     return firebase.auth().signOut()
-  }
-}
-
-/* Functions */
-function setUserData (user, userVal) {
-  user = user || {}
-  for (let key in userVal) {
-    console.log(key, userVal[key])
-    user[key] = userVal[key]
   }
 }

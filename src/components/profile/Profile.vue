@@ -2,10 +2,10 @@
   <div>
     <div class="ui center aligned grid">
       <div class="row" style="padding-bottom: 0px;">
-        <img :src="user.photo" class="ui circular image">
+        <img :src="user.photoURL" class="ui circular image">
       </div>
       <div class="row" style="padding-bottom: 0px;">
-        <h1>{{ user.name }}</h1>
+        <h1>{{ user.displayName }}</h1>
       </div>
       <div class="row">
         <h3>{{ user.description }}</h3>
@@ -19,12 +19,7 @@
 
 <script>
 export default {
-  props: {
-    user: {
-      type: Object,
-      required: true
-    }
-  }
+  props: ['user']
 }
 </script>
 

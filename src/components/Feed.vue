@@ -12,30 +12,25 @@
       </h5>
     </a>
     <br/>
-    <CreatePost :user="user"></CreatePost>
+    <CreatePost v-if="user" :user="user"></CreatePost>
     <Posts :posts="posts"></Posts>
   </div>
 </template>
 
 <script>
-import PostAPI from './../services/post.js'
 import Posts from './post/Posts'
 import CreatePost from './post/CreatePost'
+import PostService from './../services/post.js'
 
 export default {
-  props: {
-    user: {
-      type: Object,
-      required: true
-    }
-  },
+  props: ['user'],
   data () {
     return {
       posts: []
     }
   },
   created () {
-    PostAPI.getPosts().then((posts) => {
+    PostService.getPosts().then(posts => {
       this.posts = posts
     })
   },

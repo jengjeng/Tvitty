@@ -19,15 +19,7 @@
 import TopMenu from './TopMenu'
 
 export default {
-  props: {
-    title: {
-      type: String,
-      default: ''
-    },
-    user: {
-      type: Object
-    }
-  },
+  props: ['title', 'user'],
   components: {
     TopMenu
   },

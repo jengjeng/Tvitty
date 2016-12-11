@@ -1,19 +1,19 @@
 <template>
-  <transition :css="false" @enter="enter" @leave="leave">
+  <transition silent :css="false" @enter="enter" @leave="leave">
     <div class="ui segment transition hidden">
       <div class="ui feed">
         <div class="event">
           <div class="label photo-container">
-            <img :src="user.photo">
+            <img :src="user.photoURL">
           </div>
           <div class="content">
             <div class="summary">
               <router-link to="/profile" class="user">
-                {{ user.name }}
+                {{ user.displayName }}
               </router-link>
-              <router-link to="/profile" class="date">
-                @{{ user.name }}
-              </router-link>
+              <!--<router-link to="/profile" class="date">
+                @{{ user.email }}
+              </router-link>-->
               <MomentDate :date="new Date(post.date)" class="date"></MomentDate>
             </div>
             <div class="summary" v-html="post.message">
@@ -34,16 +34,7 @@
 import MomentDate from './../MomentDate'
 
 export default {
-  props: {
-    post: {
-      type: Object,
-      required: true
-    },
-    user: {
-      type: Object,
-      required: true
-    }
-  },
+  props: ['post', 'user'],
   methods: {
     enter (el, done) {
       $(el).transition('fade down')

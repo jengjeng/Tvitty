@@ -5,7 +5,7 @@
         <div class="field">
           <label>Photo</label>
           <a @click="photoPicker" src="javascript:void(0)" class="photo-picker">
-            <img ref="photoPreview" :src="curUser.photo" class="ui image circular" alt="User Photo"/>
+            <img ref="photoPreview" :src="curUser.photoURL" class="ui image circular" alt="User Photo"/>
           </a>
           <input ref="photoSelected" type="file" style="display:none">
         </div>
@@ -29,12 +29,7 @@ import Vue from 'vue'
 import UserAPI from './../../services/user.js'
 
 export default {
-  props: {
-    user: {
-      type: Object,
-      required: true
-    }
-  },
+  props: ['user'],
   data () {
     const curUser = Vue.util.extend({}, this.user)
     return {
@@ -59,7 +54,7 @@ export default {
         reader.onload = (e) => {
           const imgBase64 = e.target.result
           $(photoPreview).attr('src', imgBase64)
-          this.curUser.photo = imgBase64
+          this.curUser.photoURL = imgBase64
         }
         reader.readAsDataURL(input.files[0])
       }
