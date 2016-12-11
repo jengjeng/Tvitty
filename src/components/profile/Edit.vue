@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="ui segment">
-      <form ref="form" class="ui form">
+      <form ref="form" class="ui form" @submit.prevent="submitForm">
         <div class="field">
           <label>Photo</label>
           <a @click="photoPicker" src="javascript:void(0)" class="photo-picker">
@@ -45,10 +45,6 @@ export default {
   mounted () {
     this.$nextTick(() => {
       $(this.$refs.photoSelected).change(this.previewPhoto)
-      $(this.$refs.form).submit((e) => {
-        this.submitForm()
-        return e.preventDefault()
-      })
     })
   },
   methods: {
