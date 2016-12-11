@@ -7,31 +7,16 @@
           <span>{{ title }}</span>
         </span>
       </router-link>
-      <!--<template v-for="route in routes">
-        <router-link v-if="route.navbar === 'MainMenu'" :to="route.path" class="item">{{ route.title || route.name || route.path }}</router-link>
-      </template>-->
-      <div class="right menu">
-        <a ref="dropdown" class="ui dropdown item">
-          <div>
-            <img :src="user.photo" class="ui circular image mini"/>
-            &nbsp;
-            <span class="ui sub header grey">@</span>
-            {{ user.name }}
-          </div>
-          <i class="dropdown icon"></i>
-          <div class="menu">
-            <template v-for="route in routes">
-              <router-link v-if="route.navbar === 'UserProfileDropdown'" :to="route.path" class="item">{{ route.title || route.name || route.path }}</router-link>
-            </template>
-          </div>
-        </a>
-      </div>
+      <template v-for="route in routes">
+        <router-link v-if="route.navbar === 'MainMenu'" :to="route.path" class="item" active-class="actve">{{ route.title || route.name || route.path }}</router-link>
+      </template>
+      <TopMenu :user="user"></TopMenu>
     </div>
   </div>
 </template>
 
 <script>
-import NavbarMenu from './NavbarMenu'
+import TopMenu from './TopMenu'
 
 export default {
   props: {
@@ -44,26 +29,17 @@ export default {
     }
   },
   components: {
-    NavbarMenu
+    TopMenu
   },
   data () {
     return {
       routes: this.$router.options.routes
     }
-  },
-  mounted () {
-    this.$nextTick(() => {
-      $(this.$refs.dropdown).dropdown()
-    })
   }
 }
 </script>
-
 <style scoped lang="scss">
   .ui.menu .item img.logo {
     margin-right: 1.5em;
-  }
-  .right.menu img {
-    display: inline-block;
   }
 </style>

@@ -1,6 +1,6 @@
 <template>
   <div class="ui segment secondary">
-   <form ref="form" class="ui fluid action input">
+   <form ref="form" class="ui fluid action input" @submit.prevent="sendMessage">
       <div class="photo-container">
         <img :src="user.photo" class="ui image circular mini">
       </div>
@@ -11,7 +11,7 @@
 </template>
 
 <script>
-import PostAPI from './../../api/post.js'
+import PostAPI from './../../services/post.js'
 
 export default {
   props: {
@@ -21,10 +21,6 @@ export default {
     }
   },
   mounted () {
-    $(this.$refs.form).submit((e) => {
-      this.sendMessage()
-      return e.preventDefault()
-    })
     $(this.$refs.message).focus()
   },
   methods: {

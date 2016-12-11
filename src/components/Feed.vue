@@ -18,7 +18,7 @@
 </template>
 
 <script>
-import PostAPI from './../api/post.js'
+import PostAPI from './../services/post.js'
 import Posts from './post/Posts'
 import CreatePost from './post/CreatePost'
 

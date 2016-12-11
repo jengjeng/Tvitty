@@ -20,7 +20,7 @@
         now: new Date()
       }
     },
-    mounted () {
+    created () {
       this._int = setInterval(() => {
         this.now = new Date()
       }, 1000)

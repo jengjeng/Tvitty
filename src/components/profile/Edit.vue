@@ -26,7 +26,7 @@
 
 <script>
 import Vue from 'vue'
-import UserAPI from './../../api/user.js'
+import UserAPI from './../../services/user.js'
 
 export default {
   props: {
@@ -65,7 +65,7 @@ export default {
       }
     },
     submitForm () {
-      UserAPI.update(this.curUser)
+      UserAPI.save(this.curUser)
       this.$router.push('/profile')
     }
   }

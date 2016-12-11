@@ -7,18 +7,14 @@
 </template>
 
 <script>
-import AppSetting from './config/app.js'
-import UserAPI from './api/user.js'
 import Navbar from './components/navbar/Navbar'
 import PageFooter from './components/PageFooter'
+import componentData from './baseComponentData'
 
 export default {
   name: 'app',
   data () {
-    return {
-      AppSetting,
-      user: UserAPI.currentUser
-    }
+    return componentData
   },
   components: {
     Navbar,

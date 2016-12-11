@@ -1,5 +1,4 @@
-import UserAPI from './user'
-const user = UserAPI.currentUser
+import UserService from './user'
 let posts = []
 
 export default {
@@ -14,7 +13,7 @@ export default {
               isLike: index % 3 === 0,
               likes: Math.round(Math.random() * 110) + 1,
               date: Math.round(new Date() - (Math.random() * 3600000)),
-              user
+              user: UserService.currentUser
             }
           }).forEach((v) => {
             posts.push(v)
@@ -32,7 +31,7 @@ export default {
       isLike: false,
       likes: 0,
       date: +new Date(),
-      user
+      user: UserService.currentUser
     })
     return id
   }
