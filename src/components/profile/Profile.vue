@@ -18,8 +18,14 @@
 </template>
 
 <script>
+import AppConfig from './../../config/app.js'
+import { UserService } from './../../services'
+
 export default {
-  props: ['user']
+  data: () => ({
+    title: AppConfig.name,
+    user: UserService.currentUser
+  })
 }
 </script>
 

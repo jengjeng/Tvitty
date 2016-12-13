@@ -19,7 +19,6 @@
 import UserService from './../services/user.js'
 
 export default {
-  props: ['title'],
   methods: {
     signIn () {
       UserService.signInWithGoogle().then(() => {

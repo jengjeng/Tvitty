@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <Navbar :title="AppSetting.name" :user="user" ></Navbar>
+    <Navbar></Navbar>
     <router-view class="ui main text container"></router-view>
     <PageFooter></PageFooter>
   </div>
@@ -9,13 +9,9 @@
 <script>
 import Navbar from './components/navbar/Navbar'
 import PageFooter from './components/PageFooter'
-import componentData from './baseComponentData'
 
 export default {
   name: 'app',
-  data () {
-    return componentData
-  },
   components: {
     Navbar,
     PageFooter

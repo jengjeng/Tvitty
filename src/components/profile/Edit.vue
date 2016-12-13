@@ -25,13 +25,14 @@
 </template>
 
 <script>
+import { UserService } from './../../services'
 import Vue from 'vue'
 import UserAPI from './../../services/user.js'
 
 export default {
   props: ['user'],
   data () {
-    const curUser = Vue.util.extend({}, this.user)
+    const curUser = Vue.util.extend({}, UserService.currentUser)
     return {
       curUser,
       userPhoto: curUser.photo

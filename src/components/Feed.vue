@@ -18,14 +18,17 @@
 </template>
 
 <script>
+import AppConfig from './../config/app.js'
+import { UserService } from './../services'
 import Posts from './post/Posts'
 import CreatePost from './post/CreatePost'
 import PostService from './../services/post.js'
 
 export default {
-  props: ['user'],
   data () {
     return {
+      title: AppConfig.name,
+      user: UserService.currentUser,
       posts: []
     }
   },

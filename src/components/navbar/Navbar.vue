@@ -16,15 +16,18 @@
 </template>
 
 <script>
+import AppConfig from './../../config/app.js'
+import { UserService } from './../../services'
 import TopMenu from './TopMenu'
 
 export default {
-  props: ['title', 'user'],
   components: {
     TopMenu
   },
   data () {
     return {
+      title: AppConfig.name,
+      user: UserService.currentUser,
       routes: this.$router.options.routes
     }
   }
