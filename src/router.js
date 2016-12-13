@@ -12,9 +12,9 @@ Vue.use(VueRouter)
 const router = new VueRouter({
   /* mode: 'history', */
   routes: [
-    { path: '/', navbar: null, title: 'Home', component: Feed, meta: { requiredAuth: true } },
-    { path: '/profile', navbar: 'UserProfileDropdown', title: 'Profile', Profile, meta: { requiredAuth: true } },
-    { path: '/profile/edit', navbar: null, title: 'Profile', ProfileEdit },
+    { path: '/', navbar: null, title: 'Home', component: Feed },
+    { path: '/profile', navbar: 'UserProfileDropdown', title: 'Profile', component: Profile, meta: { requiredAuth: true } },
+    { path: '/profile/edit', navbar: null, title: 'Profile', component: ProfileEdit, meta: { requiredAuth: true } },
 
     { path: '/signin', navbar: null, component: SignIn, beforeEnter: preventDuplicateSignIn },
     { path: '/user/:id', navbar: 'MainMenu', title: 'User', component: User, meta: { requiredAuth: true } },

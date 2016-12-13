@@ -2,13 +2,13 @@
   <div>
     <div class="ui center aligned grid">
       <div class="row" style="padding-bottom: 0px;">
-        <img :src="user.photoURL" class="ui circular image">
+        <img :src="profile.photo" class="ui circular image">
       </div>
       <div class="row" style="padding-bottom: 0px;">
-        <h1>{{ user.displayName }}</h1>
+        <h1>{{ profile.name }}</h1>
       </div>
       <div class="row">
-        <h3>{{ user.description }}</h3>
+        <h3>{{ profile.description }}</h3>
       </div>
       <div class="row">
         <router-link to="/profile/edit" class="ui primary button">Edit</router-link>
@@ -23,9 +23,11 @@ import { UserService } from './../../services'
 
 export default {
   data: () => ({
-    title: AppConfig.name,
-    user: UserService.currentUser
-  })
+    title: AppConfig.name
+  }),
+  computed: {
+    profile: () => UserService.currentUser.profile
+  }
 }
 </script>
 

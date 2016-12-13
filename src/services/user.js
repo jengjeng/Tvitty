@@ -1,17 +1,24 @@
 import firebase from 'firebase'
+import Store from './../store'
 
 const db = firebase.database()
 
 firebase.auth().onAuthStateChanged(user => {
   let defaultProfile = {
-    description: ''
+    name: '',
+    description: '',
+    photo: ''
   }
+  Store.currentUser = user
   if (user) {
-    let ref = `/users/${user.uid}`
+    let ref = `users/${user.uid}/profile`
+    defaultProfile = Object.assign(defaultProfile, {
+      name: user.displayName,
+      photo: user.photoURL
+    })
     user.profile = defaultProfile
     db.ref(ref)
-      .once('value')
-      .then(snapshot => {
+      .on('value', snapshot => {
         var userVal = snapshot.val()
         if (userVal) {
           user.profile = userVal
@@ -24,13 +31,11 @@ firebase.auth().onAuthStateChanged(user => {
 
 export default {
   get currentUser () {
-    return firebase.auth().currentUser
+    return Store.currentUser
   },
   save (obj) {
-    for (let prop in obj) {
-      this.currentUser[prop] = obj[prop]
-    }
-    return this.currentUser
+    const user = this.currentUser
+    return db.ref(`users/${user.uid}/profile`).set(obj)
   },
   signInWithGoogle () {
     return firebase.auth().signInWithPopup(new firebase.auth.GoogleAuthProvider())

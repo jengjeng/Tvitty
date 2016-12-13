@@ -1,12 +1,12 @@
 <template>
   <div class="right menu">
-    <router-link v-if="!user" to="/signin" class="item">Sign In</router-link>
+    <router-link v-if="!isUser" to="/signin" class="item">Sign In</router-link>
     <a v-else ref="dropdown" class="ui dropdown item">
       <div>
-        <img :src="user.photoURL" class="ui circular image mini"/>
+        <img :src="user.profile.photo" class="ui circular image mini"/>
         &nbsp;
         <span class="ui sub header grey">@</span>
-        {{ user.displayName }}
+        {{ user.profile.name }}
       </div>
       <i class="dropdown icon"></i>
       <div class="menu">
@@ -24,16 +24,23 @@ import { UserService } from './../../services'
 import firebase from 'firebase'
 
 export default {
-  created () {
-    firebase.auth().onAuthStateChanged(user => {
-      this.user = UserService.currentUser
-    })
-  },
   data () {
     return {
-      user: UserService.currentUser,
+      isUser: false,
+      user: {
+        profile: {
+          name: '',
+          photo: ''
+        }
+      },
       routes: this.$router.options.routes
     }
+  },
+  created () {
+    firebase.auth().onAuthStateChanged(user => {
+      this.user = user
+      this.isUser = !!user
+    })
   },
   mounted () {
     this.$nextTick(this.initUI)
