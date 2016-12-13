@@ -20,12 +20,18 @@
 </template>
 
 <script>
-import UserService from './../../services/user.js'
+import { UserService } from './../../services'
+import firebase from 'firebase'
 
 export default {
-  props: ['user'],
+  created () {
+    firebase.auth().onAuthStateChanged(user => {
+      this.user = UserService.currentUser
+    })
+  },
   data () {
     return {
+      user: UserService.currentUser,
       routes: this.$router.options.routes
     }
   },
