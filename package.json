@@ -20,7 +20,8 @@
     "script-loader": "^0.7.0",
     "semantic-ui": "^2.2.6",
     "vue": "^2.1.0",
-    "vue-router": "^2.1.0"
+    "vue-router": "^2.1.0",
+    "vuex": "^2.0.0"
   },
   "devDependencies": {
     "autoprefixer": "^6.4.0",
