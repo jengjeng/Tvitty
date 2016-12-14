@@ -28,9 +28,7 @@ export default {
   }),
   created () {
     AuthService.subscribeUser((user) => {
-      if (user) {
-        this.user = user
-      }
+      this.user = user
     })
   }
 }

@@ -33,7 +33,6 @@ export default {
   },
   created () {
     PostService.list().then(posts => {
-      console.log(posts)
       this.posts = posts
     })
   },

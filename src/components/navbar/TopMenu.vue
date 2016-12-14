@@ -37,7 +37,7 @@ export default {
     AuthService.subscribeUser((user) => {
       if (user) {
         this.isFetch = true
-        MeService.get(profile => {
+        MeService.subscribe(profile => {
           this.profile = profile
         })
       }

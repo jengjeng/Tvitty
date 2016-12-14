@@ -6,6 +6,4 @@ let store = new Vue({
   })
 })
 
-export default {
-  currentUser: store.currentUser
-}
+export default store

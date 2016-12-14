@@ -11,11 +11,14 @@ const get = (callback) => UserService.get(AuthService.currentUser.uid, (profile)
 
 const set = (callback) => UserService.set(AuthService.currentUser.uid, callback)
 
+const subscribe = (callback) => UserService.subscribe(AuthService.currentUser.uid, callback)
+
 const uploadPhoto = (file, progress) => UserService.uploadPhoto(AuthService.currentUser.uid, file, progress)
 
 export default {
   get,
   set,
+  subscribe,
   uploadPhoto
 }
 

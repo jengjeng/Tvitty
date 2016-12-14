@@ -20,7 +20,6 @@ export default {
   },
   methods: {
     refresh () {
-      console.log(AuthService.currentUser.uid)
       UserService.get(this.$route.params.id || AuthService.currentUser.uid, (profile) => {
         this.profile = profile
       })
