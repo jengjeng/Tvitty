@@ -17,37 +17,44 @@ const requireUser = () => {
   })
 }
 
+const requireProfile = user => {
+  return new Promise((resolve, reject) => {
+    let defaultProfile = {
+      name: '',
+      description: '',
+      photo: ''
+    }
+    if (user) {
+      let ref = `users/${user.uid}/profile`
+      defaultProfile = Object.assign(defaultProfile, {
+        name: user.displayName,
+        photo: user.photoURL
+      })
+      user.profile = defaultProfile
+      db.ref(ref)
+        .on('value', snapshot => {
+          var userVal = snapshot.val()
+          if (userVal) {
+            user.profile = userVal
+          } else {
+            db.ref(ref).set(defaultProfile)
+          }
+          Store.currentUser = user
+          resolve(user.profile)
+        })
+    } else {
+      Store.currentUser = user
+    }
+  })
+}
+
 const subscribeUser = (cb) => {
   firebase.auth().onAuthStateChanged(user => {
     cb && cb(user)
   })
 }
 
-firebase.auth().onAuthStateChanged(user => {
-  let defaultProfile = {
-    name: '',
-    description: '',
-    photo: ''
-  }
-  Store.currentUser = user
-  if (user) {
-    let ref = `users/${user.uid}/profile`
-    defaultProfile = Object.assign(defaultProfile, {
-      name: user.displayName,
-      photo: user.photoURL
-    })
-    user.profile = defaultProfile
-    db.ref(ref)
-      .on('value', snapshot => {
-        var userVal = snapshot.val()
-        if (userVal) {
-          user.profile = userVal
-        } else {
-          db.ref(ref).set(defaultProfile)
-        }
-      })
-  }
-})
+firebase.auth().onAuthStateChanged(user => requireProfile(user))
 
 export default {
   get currentUser () {

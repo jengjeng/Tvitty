@@ -1,12 +1,12 @@
 <template>
-  <div class="right menu">
-    <router-link v-if="!isFetch" to="/signin" class="item">Sign In</router-link>
+  <div>
+    <router-link v-if="!user" to="/signin" class="item">Sign In</router-link>
     <a v-else ref="dropdown" class="ui dropdown item">
       <div>
-        <img :src="profile.photo" class="ui circular image mini"/>
+        <img :src="user.profile.photo" class="ui circular image mini"/>
         &nbsp;
         <span class="ui sub header grey">@</span>
-        {{ profile.name }}
+        {{ user.profile.name }}
       </div>
       <i class="dropdown icon"></i>
       <div class="menu">
@@ -20,28 +20,14 @@
 </template>
 
 <script>
-import { AuthService, MeService } from './../../services'
+import { AuthService } from './../../services'
 
 export default {
+  props: ['user'],
   data () {
     return {
-      isFetch: false,
-      profile: {
-        name: '',
-        photo: ''
-      },
       routes: this.$router.options.routes
     }
-  },
-  created () {
-    AuthService.subscribeUser((user) => {
-      if (user) {
-        this.isFetch = true
-        MeService.subscribe(profile => {
-          this.profile = profile
-        })
-      }
-    })
   },
   mounted () {
     this.$nextTick(this.initUI)
@@ -51,12 +37,11 @@ export default {
   },
   methods: {
     initUI () {
-      if (this.profile) {
+      if (this.user) {
         $(this.$refs.dropdown).dropdown()
       }
     },
     signOut () {
-      this.isFetch = false
       AuthService.signOut()
       $(this.$refs.dropdown).dropdown('destroy')
       this.$router.push('/')

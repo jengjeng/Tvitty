@@ -7,15 +7,15 @@
           <span>{{ title }}</span>
         </span>
       </router-link>
-      <router-link v-if="user" :to="`/user/${user.uid}`" class="item" active-class="actve">User</router-link>
-      <TopMenu></TopMenu>
+      <router-link v-if="store.currentUser" :to="`/user/${store.currentUser.uid}`" class="item" active-class="actve">User</router-link>
+      <TopMenu :user="store.currentUser" class="right menu"></TopMenu>
     </div>
   </div>
 </template>
 
 <script>
 import AppConfig from './../../config/app.js'
-import { AuthService } from './../../services'
+import Store from './../../store'
 import TopMenu from './TopMenu'
 
 export default {
@@ -24,13 +24,8 @@ export default {
   },
   data: () => ({
     title: AppConfig.name,
-    user: null
-  }),
-  created () {
-    AuthService.subscribeUser((user) => {
-      this.user = user
-    })
-  }
+    store: Store
+  })
 }
 </script>
 <style scoped lang="scss">

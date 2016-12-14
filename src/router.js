@@ -5,7 +5,7 @@ import Profile from './components/profile/Profile'
 import ProfileEdit from './components/profile/Edit.vue'
 import SignIn from './components/SignIn.vue'
 import User from './components/User.vue'
-import { AuthService, MeService } from './services'
+import { AuthService } from './services'
 
 Vue.use(VueRouter)
 
@@ -25,15 +25,7 @@ const router = new VueRouter({
 
 router.beforeEach((to, from, next) => {
   if (to.matched.some(x => x.meta.requiredAuth)) {
-    const promises = [
-      new Promise((resolve, reject) => {
-        MeService.get().then(resolve, reject)
-      }),
-      new Promise((resolve, reject) => {
-        AuthService.requireUser().then(resolve, reject)
-      })
-    ]
-    Promise.all(promises).then(() => {
+    AuthService.requireUser().then(() => {
       next()
     }, () => {
       next({ path: '/signin', query: { redirect: to.fullPath } })

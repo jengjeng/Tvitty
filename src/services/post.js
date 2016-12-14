@@ -44,9 +44,11 @@ export default {
         posts.push(v)
       })
       const items = values[1]
-      items.forEach((v) => {
-        posts.push(v)
-      })
+      for (let key in items) {
+        items[key].id = key
+        posts.push(items[key])
+      }
+      console.log(posts)
 
       posts.forEach(post => {
         const postPromise = new Promise((resolve, reject) => {
@@ -59,6 +61,7 @@ export default {
       })
       return Promise.all(itemPromises)
     }).then(() => {
+      console.log(posts)
       return posts
     })
   },
@@ -70,10 +73,9 @@ export default {
       timestamp: firebase.database.ServerValue.TIMESTAMP,
       owner: AuthService.currentUser.uid
     }
-    posts.unshift(item)
     firebase.database().ref(ref).push(item).then(() => {
-      console.log(arguments)
-      posts.push(item)
+      posts.unshift(item)
+      console.log(posts)
     })
   }
 }

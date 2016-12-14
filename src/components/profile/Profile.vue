@@ -1,6 +1,6 @@
 <template>
   <div>
-    <ProfileDetail v-if="profile" :profile="profile"></ProfileDetail>
+    <ProfileDetail v-if="store.currentUser" :profile="store.currentUser.profile"></ProfileDetail>
     <div class="ui center aligned grid">
       <div class="row">
         <router-link to="/profile/edit" class="ui primary button">Edit</router-link>
@@ -12,22 +12,13 @@
 <script>
 import AppConfig from './../../config/app.js'
 import ProfileDetail from './ProfileDetail'
-import { MeService } from './../../services'
+import Store from './../../store'
 
 export default {
   data: () => ({
     title: AppConfig.name,
-    profile: {
-      name: '',
-      description: '',
-      photo: ''
-    }
+    store: Store
   }),
-  created () {
-    MeService.get((profile) => {
-      this.profile = profile
-    })
-  },
   components: {
     ProfileDetail
   }
