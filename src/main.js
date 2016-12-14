@@ -16,8 +16,5 @@ Vue.use(Vuex)
 new Vue({
   el: '#app',
   router,
-  mounted () {
-    $('body').css('opacity', '')
-  },
   render: h => h(App)
 })
