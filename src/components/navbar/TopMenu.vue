@@ -1,12 +1,12 @@
 <template>
   <div class="right menu">
-    <router-link v-if="!isUser" to="/signin" class="item">Sign In</router-link>
+    <router-link v-if="!isFetch" to="/signin" class="item">Sign In</router-link>
     <a v-else ref="dropdown" class="ui dropdown item">
       <div>
-        <img :src="user.profile.photo" class="ui circular image mini"/>
+        <img :src="profile.photo" class="ui circular image mini"/>
         &nbsp;
         <span class="ui sub header grey">@</span>
-        {{ user.profile.name }}
+        {{ profile.name }}
       </div>
       <i class="dropdown icon"></i>
       <div class="menu">
@@ -20,26 +20,27 @@
 </template>
 
 <script>
-import { UserService } from './../../services'
-import firebase from 'firebase'
+import { AuthService, MeService } from './../../services'
 
 export default {
   data () {
     return {
-      isUser: false,
-      user: {
-        profile: {
-          name: '',
-          photo: ''
-        }
+      isFetch: false,
+      profile: {
+        name: '',
+        photo: ''
       },
       routes: this.$router.options.routes
     }
   },
   created () {
-    firebase.auth().onAuthStateChanged(user => {
-      this.user = user
-      this.isUser = !!user
+    AuthService.subscribeUser((user) => {
+      if (user) {
+        this.isFetch = true
+        MeService.get(profile => {
+          this.profile = profile
+        })
+      }
     })
   },
   mounted () {
@@ -50,12 +51,13 @@ export default {
   },
   methods: {
     initUI () {
-      if (this.user) {
+      if (this.profile) {
         $(this.$refs.dropdown).dropdown()
       }
     },
     signOut () {
-      UserService.signOut()
+      this.isFetch = false
+      AuthService.signOut()
       $(this.$refs.dropdown).dropdown('destroy')
       this.$router.push('/')
     }

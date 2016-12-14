@@ -1,4 +1,4 @@
-import UserService from './user'
+import AuthService from './user'
 let posts = []
 
 export default {
@@ -14,7 +14,7 @@ export default {
               isLike: index % 3 === 0,
               likes: Math.round(Math.random() * 110) + 1,
               date: Math.round(new Date() - (Math.random() * 3600000)),
-              user: UserService.currentUser
+              user: AuthService.currentUser
             }
           }).forEach((v) => {
             posts.push(v)
@@ -32,7 +32,7 @@ export default {
       isLike: false,
       likes: 0,
       date: +new Date(),
-      user: UserService.currentUser
+      user: AuthService.currentUser
     })
     return id
   }

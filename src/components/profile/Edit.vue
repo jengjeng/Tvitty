@@ -7,16 +7,25 @@
 </template>
 
 <script>
-import { UserService } from './../../services'
+import { MeService } from './../../services'
 import ProfileForm from './ProfileForm'
 
 export default {
   data: () => ({
-    profile: UserService.currentUser.profile
+    profile: {
+      name: '',
+      description: '',
+      photo: ''
+    }
   }),
+  created () {
+    MeService.get((profile) => {
+      this.profile = profile
+    })
+  },
   methods: {
     save () {
-      UserService.save(this.profile).then(() => {
+      MeService.set(this.profile).then(() => {
         this.back()
       })
     },

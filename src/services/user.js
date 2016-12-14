@@ -1,46 +1,27 @@
 import firebase from 'firebase'
-import Store from './../store'
 
 const db = firebase.database()
 
-firebase.auth().onAuthStateChanged(user => {
-  let defaultProfile = {
-    name: '',
-    description: '',
-    photo: ''
-  }
-  Store.currentUser = user
-  if (user) {
-    let ref = `users/${user.uid}/profile`
-    defaultProfile = Object.assign(defaultProfile, {
-      name: user.displayName,
-      photo: user.photoURL
-    })
-    user.profile = defaultProfile
-    db.ref(ref)
-      .on('value', snapshot => {
-        var userVal = snapshot.val()
-        if (userVal) {
-          user.profile = userVal
-        } else {
-          db.ref(ref).set(defaultProfile)
-        }
-      })
-  }
-})
-
 export default {
-  get currentUser () {
-    return Store.currentUser
+  get (id, callback) {
+    return db
+      .ref(`users/${id}/profile`)
+      .once('value', (snapshot) => {
+        let profile = snapshot.val()
+        callback && callback(profile)
+        return profile
+      })
   },
-  save (obj) {
-    const user = this.currentUser
-    return db.ref(`users/${user.uid}/profile`).set(obj)
+  set (id, profile) {
+    return db.ref(`users/${id}/profile`).set(profile)
   },
-  signInWithGoogle () {
-    return firebase.auth().signInWithPopup(new firebase.auth.GoogleAuthProvider())
-  },
-  signOut () {
-    return firebase.auth().signOut()
+  subscribe (id, callback) {
+    return db
+      .ref(`users/${id}/profile`)
+      .on('value', (snapshot) => {
+        let profile = snapshot.val()
+        callback && callback(profile)
+        return profile
+      })
   }
 }

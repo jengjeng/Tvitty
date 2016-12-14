@@ -5,7 +5,7 @@ let store = new Vue({
     store = this
   },
   data: () => ({
-    $user: {}
+    $user: null
   }),
   computed: {
     user: () => {

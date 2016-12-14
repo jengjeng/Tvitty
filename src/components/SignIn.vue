@@ -16,12 +16,12 @@
 </template>
 
 <script>
-import UserService from './../services/user.js'
+import { AuthService } from './../services'
 
 export default {
   methods: {
     signIn () {
-      UserService.signInWithGoogle().then(() => {
+      AuthService.signInWithGoogle().then(() => {
         this.$router.replace(this.$route.query.redirect || '/')
       })
     }

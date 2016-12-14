@@ -7,29 +7,31 @@
           <span>{{ title }}</span>
         </span>
       </router-link>
-      <template v-for="route in routes">
-        <router-link v-if="route.navbar === 'MainMenu'" :to="route.path" class="item" active-class="actve">{{ route.title || route.name || route.path }}</router-link>
-      </template>
-      <TopMenu :user="user"></TopMenu>
+      <router-link v-if="user" :to="`/user/${user.uid}`" class="item" active-class="actve">User</router-link>
+      <TopMenu></TopMenu>
     </div>
   </div>
 </template>
 
 <script>
 import AppConfig from './../../config/app.js'
-import { UserService } from './../../services'
+import { AuthService } from './../../services'
 import TopMenu from './TopMenu'
 
 export default {
   components: {
     TopMenu
   },
-  data () {
-    return {
-      title: AppConfig.name,
-      user: UserService.currentUser,
-      routes: this.$router.options.routes
-    }
+  data: () => ({
+    title: AppConfig.name,
+    user: null
+  }),
+  created () {
+    AuthService.subscribeUser((user) => {
+      if (user) {
+        this.user = user
+      }
+    })
   }
 }
 </script>

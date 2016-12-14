@@ -1,18 +1,17 @@
 <template>
-  <div>
-    User {{ id }}<br>
-    <router-link :to="`/user/${id - 1}`">Prev</router-link><br>
-    <router-link :to="`/user/${id + 1}`">Next</router-link>
+  <div class="ui segment">
+    <ProfileDetail v-if="profile" :profile="profile" class="ui center aligned grid"></ProfileDetail>
   </div>
 </template>
 
 <script>
+import { UserService, AuthService } from './../services'
+import ProfileDetail from './../components/profile/ProfileDetail'
+
 export default {
-  data () {
-    return {
-      id: 0
-    }
-  },
+  data: () => ({
+    profile: null
+  }),
   created () {
     this.refresh()
   },
@@ -21,8 +20,13 @@ export default {
   },
   methods: {
     refresh () {
-      this.id = +this.$route.params.id
+      UserService.subscribe(this.$route.params.id || AuthService.currentUser.uid, (profile) => {
+        this.profile = profile
+      })
     }
+  },
+  components: {
+    ProfileDetail
   }
 }
 </script>

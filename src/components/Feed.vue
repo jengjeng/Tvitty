@@ -12,29 +12,29 @@
       </h5>
     </a>
     <br/>
-    <CreatePost v-if="user" :user="user"></CreatePost>
+    <CreatePost v-if="profile" :profile="profile"></CreatePost>
     <Posts :posts="posts"></Posts>
+    Not implemented yet
   </div>
 </template>
 
 <script>
 import AppConfig from './../config/app.js'
-import { UserService } from './../services'
 import Posts from './post/Posts'
 import CreatePost from './post/CreatePost'
-import PostService from './../services/post.js'
+import { PostService } from './../services'
 
 export default {
   data () {
     return {
       title: AppConfig.name,
-      user: UserService.currentUser,
+      profile: null,
       posts: []
     }
   },
   created () {
     PostService.getPosts().then(posts => {
-      this.posts = posts
+      // this.posts = posts
     })
   },
   components: {

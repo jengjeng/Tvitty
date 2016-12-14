@@ -4,15 +4,15 @@
       <div class="ui feed">
         <div class="event">
           <div class="label photo-container">
-            <img :src="user.photoURL">
+            <img :src="profile.photo">
           </div>
           <div class="content">
             <div class="summary">
               <router-link to="/profile" class="user">
-                {{ user.displayName }}
+                {{ profile.name }}
               </router-link>
               <!--<router-link to="/profile" class="date">
-                @{{ user.email }}
+                @{{ profile.email }}
               </router-link>-->
               <MomentDate :date="new Date(post.date)" class="date"></MomentDate>
             </div>
@@ -34,7 +34,7 @@
 import MomentDate from './../MomentDate'
 
 export default {
-  props: ['post', 'user'],
+  props: ['post', 'profile'],
   methods: {
     enter (el, done) {
       $(el).transition('fade down')
