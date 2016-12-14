@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Post v-for="post in sortedPosts" :key="post.id" :post="post" :user="post.user"></Post>
+    <Post v-for="post in sortedPosts" :key="post.id" :post="post" :profile="post.$profile"></Post>
   </div>
 </template>
 
@@ -17,7 +17,7 @@ export default {
   computed: {
     sortedPosts () {
       return this.posts.sort((a, b) => {
-        return b.date - a.date
+        return b.timestamp - a.timestamp
       })
     }
   },

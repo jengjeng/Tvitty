@@ -12,9 +12,8 @@
       </h5>
     </a>
     <br/>
-    <CreatePost v-if="profile" :profile="profile"></CreatePost>
+    <!--<CreatePost v-if="profile" :profile="profile"></CreatePost>-->
     <Posts :posts="posts"></Posts>
-    Not implemented yet
   </div>
 </template>
 
@@ -33,8 +32,9 @@ export default {
     }
   },
   created () {
-    PostService.getPosts().then(posts => {
-      // this.posts = posts
+    PostService.list().then(posts => {
+      console.log(posts)
+      this.posts = posts
     })
   },
   components: {

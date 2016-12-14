@@ -20,7 +20,7 @@ export default {
   },
   methods: {
     sendMessage () {
-      PostService.createPost(this.$refs.message.value)
+      PostService.add(this.$refs.message.value)
       this.$refs.form.reset()
     }
   }

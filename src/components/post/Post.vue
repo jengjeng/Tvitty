@@ -1,5 +1,5 @@
 <template>
-  <transition silent :css="false" @enter="enter" @leave="leave">
+  <transition :css="false" @enter="enter" @leave="leave">
     <div class="ui segment transition hidden">
       <div class="ui feed">
         <div class="event">
@@ -8,15 +8,12 @@
           </div>
           <div class="content">
             <div class="summary">
-              <router-link to="/profile" class="user">
+              <router-link :to="`/user/${post.owner}`" class="user">
                 {{ profile.name }}
               </router-link>
-              <!--<router-link to="/profile" class="date">
-                @{{ profile.email }}
-              </router-link>-->
-              <MomentDate :date="new Date(post.date)" class="date"></MomentDate>
+              <div class="date">{{ post.timestamp | fromNow }}</div>
             </div>
-            <div class="summary" v-html="post.message">
+            <div class="summary" v-html="post.content">
             </div>
             <div class="meta">
               <a class="like" ref="likeBtn" @click="like">
@@ -31,8 +28,6 @@
 </template>
 
 <script>
-import MomentDate from './../MomentDate'
-
 export default {
   props: ['post', 'profile'],
   methods: {
@@ -63,9 +58,6 @@ export default {
       !this.$refs.likeBtn ? this.$nextTick(this.updateState) : this.updateState()
       return this.post.likes
     }
-  },
-  components: {
-    MomentDate
   }
 }
 </script>
