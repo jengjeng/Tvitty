@@ -2,16 +2,18 @@ import firebase from 'firebase'
 
 const db = firebase.database()
 
+const getProfile = (method, id, callback) => {
+  return db
+    .ref(`users/${id}/profile`)[method]('value', snapshot => {
+      let profile = snapshot.val()
+      callback && callback(profile)
+      return profile
+    })
+}
+
 export default {
-  get (id, callback) {
-    return db
-      .ref(`users/${id}/profile`)
-      .once('value', snapshot => {
-        let profile = snapshot.val()
-        callback && callback(profile)
-        return profile
-      })
-  },
+  get: (id, callback) => getProfile('once', id, callback),
+  subscribe: (id, callback) => getProfile('on', id, callback),
   set (id, profile) {
     return db.ref(`users/${id}/profile`).set(profile)
   },
@@ -19,15 +21,6 @@ export default {
     return db
       .ref(`users`)
       .once('value', snapshots => snapshots.map(snapshot => snapshot.val()))
-  },
-  subscribe (id, callback) {
-    return db
-      .ref(`users/${id}/profile`)
-      .on('value', (snapshot) => {
-        let profile = snapshot.val()
-        callback && callback(profile)
-        return profile
-      })
   },
   uploadPhoto (id, file, progress) {
     const task = firebase.storage().ref(`users/${id}/photo`).put(file)
