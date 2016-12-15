@@ -33,7 +33,7 @@ export default {
     }
   },
   created () {
-    PostService.list().then(posts => {
+    PostService.list(posts => {
       this.posts = posts
     })
   },

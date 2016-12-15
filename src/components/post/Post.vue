@@ -28,6 +28,8 @@
 </template>
 
 <script>
+import { PostService } from './../../services'
+
 export default {
   props: ['post', 'profile'],
   methods: {
@@ -40,8 +42,7 @@ export default {
       done()
     },
     like () {
-      this.post.isLike = !this.post.isLike
-      this.post.likes += this.post.isLike ? 1 : -1
+      PostService.like(this.post)
     },
     updateState () {
       if (this.post.isLike) {
