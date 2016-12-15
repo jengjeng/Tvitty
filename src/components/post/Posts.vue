@@ -17,7 +17,7 @@ export default {
   computed: {
     sortedPosts () {
       return this.posts.sort((a, b) => {
-        return b.timestamp - a.timestamp
+        return a.timestamp - b.timestamp
       })
     }
   },
