@@ -28,7 +28,7 @@
 </template>
 
 <script>
-import { PostService } from './../../services'
+import { PostService, AuthService } from './../../services'
 
 export default {
   props: ['post', 'profile'],
@@ -42,6 +42,10 @@ export default {
       done()
     },
     like () {
+      if (!AuthService.currentUser) {
+        this.$router.push({ path: '/signin', query: { redirect: this.$route.fullPath } })
+        return
+      }
       PostService.like(this.post)
     },
     updateState () {
