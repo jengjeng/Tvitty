@@ -1,6 +1,7 @@
 import firebase from 'firebase'
 import AuthService from './auth'
 import UserService from './user'
+import DatabaseService from './database'
 
 const ref = 'tweets'
 
@@ -74,7 +75,7 @@ const like = (post, callback) => {
     return post
   }).then(result => {
     callback && callback(result)
-  })
+  }, DatabaseService.handleError)
 }
 
 export default {

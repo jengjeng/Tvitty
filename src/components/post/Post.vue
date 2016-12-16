@@ -28,7 +28,7 @@
 </template>
 
 <script>
-import { PostService, AuthService } from './../../services'
+import { PostService } from './../../services'
 
 export default {
   props: ['post', 'profile'],
@@ -42,19 +42,20 @@ export default {
       done()
     },
     like () {
-      if (!AuthService.currentUser) {
-        this.$router.push({ path: '/signin', query: { redirect: this.$route.fullPath } })
-        return
-      }
       PostService.like(this.post)
     },
     updateState () {
+      const $btn = $(this.$refs.likeBtn)
       if (this.post.isLike) {
-        $(this.$refs.likeBtn).addClass('active')
-        $('.icon', this.$refs.likeBtn).transition('jiggle')
+        if (!$btn.hasClass('active')) {
+          $btn.addClass('active')
+          $('.icon', $btn).transition('jiggle')
+        }
       } else {
-        $(this.$refs.likeBtn).removeClass('active')
-        $('.icon', this.$refs.likeBtn).transition('pulse')
+        if ($btn.hasClass('active')) {
+          $btn.removeClass('active')
+          $('.icon', $btn).transition('pulse')
+        }
       }
     }
   },
