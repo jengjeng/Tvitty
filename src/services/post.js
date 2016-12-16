@@ -40,9 +40,7 @@ const get = (id, userId, callback) => {
     }))
   }
 
-  return Promise.all(promises).then(result => {
-    const post = result[0]
-    const profile = result[1]
+  return Promise.all(promises).then(([post, profile]) => {
     post.$profile = profile
     callback && callback(post)
     return post
