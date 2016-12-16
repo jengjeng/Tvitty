@@ -1,7 +1,6 @@
 <template>
   <div>
-    <router-link v-if="!user" to="/signin" class="item">Sign In</router-link>
-    <a v-else ref="dropdown" class="ui dropdown item">
+    <a v-if="user" ref="dropdown" class="ui dropdown item">
       <div>
         <img :src="user.profile.photo" class="ui circular image mini"/>
         &nbsp;
@@ -16,6 +15,7 @@
         <div @click="signOut" class="item">Sign Out</div>
       </div>
     </a>
+    <router-link v-else to="/signin" class="item">Sign In</router-link>
   </div>
 </template>
 

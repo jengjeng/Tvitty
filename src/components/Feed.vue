@@ -29,13 +29,17 @@ export default {
     return {
       store: Store,
       title: AppConfig.name,
-      posts: []
+      posts: [],
+      listRef: null
     }
   },
   created () {
-    PostService.list(posts => {
+    this.listRef = PostService.list(posts => {
       this.posts = posts
     })
+  },
+  beforeDestroy () {
+    this.listRef.off('value')
   },
   components: {
     Posts,

@@ -6,7 +6,8 @@ import DatabaseService from './database'
 const ref = 'tweets'
 
 const list = (callback) => {
-  firebase.database().ref(ref).orderByChild('timestamp').on('value', snapshots => {
+  const $ref = firebase.database().ref(ref).orderByChild('timestamp')
+  $ref.on('value', snapshots => {
     const promises = []
     snapshots.forEach(snapshot => {
       const post = snapshot.val()
@@ -21,6 +22,7 @@ const list = (callback) => {
       callback && callback(posts)
     })
   })
+  return $ref
 }
 
 const get = (id, userId, callback) => {
