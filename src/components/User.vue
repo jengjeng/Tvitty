@@ -16,7 +16,7 @@ export default {
     this.refresh()
   },
   watch: {
-    $route: 'reload'
+    $route: 'refresh'
   },
   methods: {
     refresh () {
