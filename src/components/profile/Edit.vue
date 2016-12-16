@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="ui segment">
-      <ProfileForm v-model="profile" @save="save"></ProfileForm>
+      <ProfileForm v-if="user && user.profile" v-model="user.profile" @save="save"></ProfileForm>
     </div>
   </div>
 </template>
@@ -9,23 +9,15 @@
 <script>
 import { MeService } from './../../services'
 import ProfileForm from './ProfileForm'
+import Store from './../../store'
 
 export default {
-  data: () => ({
-    profile: {
-      name: '',
-      description: '',
-      photo: ''
-    }
-  }),
-  created () {
-    MeService.get((profile) => {
-      this.profile = profile
-    })
+  computed: {
+    user: () => Store.currentUser
   },
   methods: {
     save () {
-      MeService.set(this.profile).then(() => {
+      MeService.set(this.user.profile).then(() => {
         this.back()
       })
     },

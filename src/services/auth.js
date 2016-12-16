@@ -1,6 +1,5 @@
 import firebase from 'firebase'
 import Store from './../store'
-import UserService from './user'
 
 const db = firebase.database()
 
@@ -64,18 +63,7 @@ export default {
     return new Promise((resolve, reject) => {
       firebase.auth().signInWithPopup(new firebase.auth.GoogleAuthProvider()).then((response) => {
         const user = response.user
-        UserService.get(user.uid, (profile) => {
-          if (profile) {
-            resolve(profile)
-          } else {
-            profile = {
-              name: user.displayName,
-              description: user.description,
-              photo: user.photoURL
-            }
-            UserService.set(user.uid, profile).then(() => resolve(profile))
-          }
-        })
+        resolve(user)
       }, reject)
     })
   },
