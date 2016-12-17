@@ -1,6 +1,24 @@
 {
   "rules": {
     ".read": "true",
-    ".write": "auth != null"
+    ".write": "auth != null",
+    "users": {
+      // user public data
+      "$user_id": {
+        ".write": "auth.uid === $user_id",
+        "name": {
+          ".validate": "newData.isString()"
+        },
+        "photo": {
+          ".validate": "newData.isString()"
+        },
+        "description": {
+          ".validate": "newData.isString()"
+        },
+        "$other": {
+          ".validate": false
+        }
+      }
+    }
   }
 }
