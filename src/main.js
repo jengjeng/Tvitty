@@ -1,4 +1,4 @@
-import './config/firebase'
+import './config'
 import Vue from 'vue'
 import Vuex from 'vuex'
 

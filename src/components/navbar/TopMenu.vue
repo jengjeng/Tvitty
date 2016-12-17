@@ -2,10 +2,10 @@
   <div>
     <a v-if="user" ref="dropdown" class="ui dropdown item">
       <div>
-        <img :src="user.profile.photo" class="ui circular image mini"/>
+        <img :src="user.photo" class="ui circular image mini"/>
         &nbsp;
         <span class="ui sub header grey">@</span>
-        {{ user.profile.name }}
+        {{ user.name }}
       </div>
       <i class="dropdown icon"></i>
       <div class="menu">

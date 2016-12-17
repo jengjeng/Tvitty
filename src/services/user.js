@@ -1,4 +1,5 @@
 import firebase from 'firebase'
+import { Observable } from 'rxjs/Observable'
 
 const db = firebase.database()
 
@@ -12,6 +13,16 @@ const getProfile = (method, id, callback) => {
 }
 
 export default {
+  observable: {
+    get: (id, callback) => {
+      return Observable.create(o => {
+        let firebaseSubscription = getProfile('on', id, (profile) => {
+          o.next(profile)
+        })
+        return () => firebaseSubscription.off('value')
+      })
+    }
+  },
   get: (id, callback) => getProfile('once', id, callback),
   subscribe: (id, callback) => getProfile('on', id, callback),
   set (id, profile) {

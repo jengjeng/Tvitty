@@ -1,5 +1,6 @@
 import firebase from 'firebase'
 import Store from './../store'
+import { BehaviorSubject } from 'rxjs/BehaviorSubject'
 
 const db = firebase.database()
 
@@ -53,9 +54,19 @@ const subscribeUser = (cb) => {
   })
 }
 
-firebase.auth().onAuthStateChanged(user => requireProfile(user))
+const _user = new BehaviorSubject(undefined)
+
+firebase.auth().onAuthStateChanged(user => {
+  requireProfile(user)
+  _user.next(user)
+})
 
 export default {
+  observable: {
+    get currentUser () {
+      return _user.filter(x => x !== undefined)
+    }
+  },
   get currentUser () {
     return Store.currentUser
   },

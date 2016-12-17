@@ -7,24 +7,27 @@
           <span>{{ title }}</span>
         </span>
       </router-link>
-      <router-link v-if="store.currentUser" :to="`/user/${store.currentUser.uid}`" class="item" active-class="actve">User</router-link>
-      <TopMenu :user="store.currentUser" class="right menu"></TopMenu>
+      <div v-if="user">{{user.profile}}</div>
+      <router-link v-if="user" :to="`/user/${user.id}`" class="item" active-class="actve">User</router-link>
+      <TopMenu :user="user" class="right menu"></TopMenu>
     </div>
   </div>
 </template>
 
 <script>
 import AppConfig from './../../config/app.js'
-import Store from './../../store'
 import TopMenu from './TopMenu'
+import { MeService } from './../../services'
 
 export default {
   components: {
     TopMenu
   },
   data: () => ({
-    title: AppConfig.name,
-    store: Store
+    title: AppConfig.name
+  }),
+  subscriptions: () => ({
+    user: MeService.observable.get()
   })
 }
 </script>
