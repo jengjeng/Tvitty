@@ -40,11 +40,11 @@ const requireProfile = user => {
           } else {
             db.ref(ref).set(defaultProfile)
           }
-          Store.currentUser = user
+          Store.dispatch('setUser', user)
           resolve(user.profile)
         })
     } else {
-      Store.currentUser = user
+      Store.dispatch('setUser', user)
     }
   })
 }
@@ -69,7 +69,7 @@ export default {
     }
   },
   get currentUser () {
-    return Store.currentUser
+    return Store.state.currentUser
   },
   signInWithGoogle () {
     return new Promise((resolve, reject) => {

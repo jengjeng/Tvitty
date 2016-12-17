@@ -9,11 +9,12 @@
 <script>
 import { MeService } from './../../services'
 import ProfileForm from './ProfileForm'
-import Store from './../../store'
 
 export default {
   computed: {
-    user: () => Store.currentUser
+    user () {
+      return this.$store.state.currentUser
+    }
   },
   methods: {
     save () {

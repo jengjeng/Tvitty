@@ -1,6 +1,6 @@
 <template>
   <div>
-    <ProfileDetail v-if="store.currentUser" :profile="store.currentUser.profile"></ProfileDetail>
+    <ProfileDetail v-if="user" :profile="user.profile"></ProfileDetail>
     <div class="ui center aligned grid">
       <div class="row">
         <router-link to="/profile/edit" class="ui primary button">Edit</router-link>
@@ -12,13 +12,16 @@
 <script>
 import AppConfig from './../../config/app.js'
 import ProfileDetail from './ProfileDetail'
-import Store from './../../store'
 
 export default {
   data: () => ({
-    title: AppConfig.name,
-    store: Store
+    title: AppConfig.name
   }),
+  computed: {
+    user () {
+      return this.$store.state.currentUser
+    }
+  },
   components: {
     ProfileDetail
   }

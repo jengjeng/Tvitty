@@ -12,7 +12,7 @@
       </h5>
     </a>
     <br/>
-    <CreatePost v-if="store.currentUser" :profile="store.currentUser.profile"></CreatePost>
+    <CreatePost v-if="$store.currentUser" :profile="store.currentUser.profile"></CreatePost>
     <Posts :posts="posts"></Posts>
   </div>
 </template>
@@ -22,16 +22,17 @@ import AppConfig from './../config/app.js'
 import Posts from './post/Posts'
 import CreatePost from './post/CreatePost'
 import { PostService } from './../services'
-import Store from './../store'
 
 export default {
   data () {
     return {
-      store: Store,
       title: AppConfig.name,
       posts: [],
       listRef: null
     }
+  },
+  computed: {
+    store: () => this.$store.state
   },
   created () {
     this.listRef = PostService.list(posts => {

@@ -1,9 +1,14 @@
-import Vue from 'vue'
+import { Store } from 'vuex'
 
-let store = new Vue({
-  data: () => ({
+export default new Store({
+  state: {
     currentUser: null
-  })
+  },
+  getters: { },
+  mutations: {
+    setUser: (state, user) => { state.currentUser = user }
+  },
+  actions: {
+    setUser: (ctx, user) => ctx.commit('setUser', user)
+  }
 })
-
-export default store
