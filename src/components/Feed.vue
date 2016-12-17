@@ -12,7 +12,7 @@
       </h5>
     </a>
     <br/>
-    <CreatePost v-if="$store.currentUser" :profile="store.currentUser.profile"></CreatePost>
+    <CreatePost v-if="user" :profile="user.profile"></CreatePost>
     <Posts :posts="posts"></Posts>
   </div>
 </template>
@@ -32,7 +32,9 @@ export default {
     }
   },
   computed: {
-    store: () => this.$store.state
+    user () {
+      return this.$store.state.currentUser
+    }
   },
   created () {
     this.listRef = PostService.list(posts => {
