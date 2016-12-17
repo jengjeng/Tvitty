@@ -7,7 +7,6 @@
           <span>{{ title }}</span>
         </span>
       </router-link>
-      <div v-if="user">{{user.profile}}</div>
       <router-link v-if="user" :to="`/user/${user.id}`" class="item" active-class="actve">User</router-link>
       <TopMenu :user="user" class="right menu"></TopMenu>
     </div>

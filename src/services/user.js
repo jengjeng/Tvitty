@@ -3,23 +3,22 @@ import { Observable } from 'rxjs/Observable'
 
 const db = firebase.database()
 
-const getProfile = (method, id, callback) => {
+const getProfile = (method, id, callback, error) => {
   return db
     .ref(`users/${id}/profile`)[method]('value', snapshot => {
-      let profile = snapshot.val()
-      callback && callback(profile)
-      return profile
-    })
+      callback && callback(snapshot.val())
+    }, (err) => { error && error(err) })
 }
 
 export default {
   observable: {
-    get: (id, callback) => {
+    get: (id) => {
       return Observable.create(o => {
-        let firebaseSubscription = getProfile('on', id, (profile) => {
-          o.next(profile)
-        })
-        return () => firebaseSubscription.off('value')
+        const ref = db.ref(`users/${id}/profile`)
+        const fn = ref.on('value', snapshot => {
+          o.next(snapshot.val())
+        }, (err) => { o.error(err) })
+        return () => ref.off('value', fn)
       })
     }
   },

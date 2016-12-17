@@ -11,11 +11,18 @@ const get = (callback) => UserService.get(AuthService.currentUser.uid, (profile)
 })
 
 const observable = {
-  get: () => AuthService.observable.currentUser.flatMap((user) => {
-    return Observable.combineLatest(UserService.observable.get(user.uid))
-  }, (user, [profile]) => {
-    return {id: user.uid, user$: user, ...profile}
-  })
+  get: () => {
+    const observable = AuthService.observable.currentUser
+    const observableNoUser = observable.filter(user => !user)
+    const observableWithUser = observable
+      .filter(user => user)
+      .flatMap(user => {
+        return Observable.combineLatest(UserService.observable.get(user.uid))
+      }, (user, [profile]) => {
+        return {id: user.uid, user$: user, ...profile}
+      })
+    return observableNoUser.merge(observableWithUser)
+  }
 }
 
 const set = (callback) => UserService.set(AuthService.currentUser.uid, callback)

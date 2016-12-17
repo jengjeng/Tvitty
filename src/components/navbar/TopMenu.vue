@@ -42,9 +42,12 @@ export default {
       }
     },
     signOut () {
-      AuthService.signOut()
-      $(this.$refs.dropdown).dropdown('destroy')
-      this.$router.push('/')
+      AuthService.signOut().subscribe(() => {
+        this.$nextTick(() => {
+          $(this.$refs.dropdown).dropdown('destroy')
+          this.$router.push('/')
+        })
+      })
     }
   }
 }

@@ -1,6 +1,7 @@
 import firebase from 'firebase'
 import Store from './../store'
 import { BehaviorSubject } from 'rxjs/BehaviorSubject'
+import { Observable } from 'rxjs/Observable'
 
 const db = firebase.database()
 
@@ -79,7 +80,7 @@ export default {
     })
   },
   signOut () {
-    return firebase.auth().signOut()
+    return Observable.fromPromise(firebase.auth().signOut())
   },
   requireUser,
   subscribeUser
